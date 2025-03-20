@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/userData");
-const productRouter = require("./routes/products")
+const productRouter = require("./routes/products");
+const orderRouter = require("./routes/orders");
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,8 @@ const PORT = 8080;
 
 app.use("/api/v1/",userRouter);
 app.use("/api/v1",productRouter);
+app.use("/api/v1", orderRouter);
+
 app.listen(PORT, () => {
     console.log(`Server is Running on ${PORT}`)
 })

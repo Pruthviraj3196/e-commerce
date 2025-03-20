@@ -14,13 +14,14 @@ const products = [
 const allproducts = async (req, res) => {
    try {
     
-    res.json({
+    res.status(201).json({
         message:"All data got",
         data: products,
     })
 
    } catch (error) {
     console.log(error)
+    res.status(500).json({ message: "Server Error" });
    }
 }
 
@@ -28,6 +29,7 @@ const allproducts = async (req, res) => {
 
 const productController = {
     allproducts,
+    products
 }
 
 module.exports = productController;

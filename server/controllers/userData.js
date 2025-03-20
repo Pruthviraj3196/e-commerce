@@ -7,7 +7,7 @@ const signup = async (req, res) => {
     const {firstName,lastName,email,password,address} = req.body;
 
     if(!firstName||!lastName||!email||!password||!address){
-       return  res.json({
+       return  res.status(400).json({
             message:"Please provide all the required data"
         })
     }
@@ -15,7 +15,7 @@ const signup = async (req, res) => {
     const userinfo = await userModel.findOne({email: req.body.email})
 
     if(userinfo){
-        return res.json({
+        return res.status(400).json({
             message:"user Already Register please login"
         })
     } 
@@ -24,12 +24,13 @@ const signup = async (req, res) => {
     const newUser = await user.save()
     console.log(user)
 
-    res.json({
+    res.status(201).json({
         message:"user created successfully"
     })
         
     } catch (error) {
         console.log(error)
+        res.status(500).json({ message: "Server Error" });
     }
 }
 
@@ -43,7 +44,7 @@ const login = async (req, res) => {
         console.log(userinfo)
 
         if(!userinfo){
-            return res.json({
+            return res.status(400).json({
                 message: "Account not Found Resgister"
             })
         }
@@ -53,17 +54,18 @@ const login = async (req, res) => {
        
        
        if(isPassword !== req.body.password){
-        return res.json({
+        return res.status(400).json({
             message:"Please check userId or Password"
         })
        }
     
-        res.json({
+       res.status(201).json({
             message:"user is login sucessfully"
         })
 
     } catch (error) {
         console.log(error);
+        res.status(500).json({ message: "Server Error" });
         
     }
 }
